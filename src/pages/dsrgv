@@ -1,0 +1,89 @@
+import supabase from "../config/supabaseClient";
+import { useEffect, useState } from "react";
+import img4 from "../assets/img4.jpg";
+import NavNormal from "../components/NavNormal";
+import MealCard from "../components/MealCard";
+
+const Meals = () => {
+  const [fetchError, setFetchError] = useState(null);
+  const [meal, setMeal] = useState(null);
+  const [mainDishh, setMainDish] = useState(null);
+
+  useEffect(() => {
+    const fetchAllMeals = async () => {
+      const { data, error } = await supabase.from("meal").select();
+
+      if (error) {
+        setFetchError("Could Not Fetch Meals");
+        setMeal(null);
+        console.log(error);
+      }
+      if (data) {
+        setMeal(data);
+        setFetchError(null);
+      }
+    };
+    fetchAllMeals();
+
+    const mainDish = async () => {
+      const { data, error } = await supabase
+        .from("meal")
+        .select()
+        .eq("dish_type", "Main Dish");
+
+      if (error) {
+        setFetchError("Could Not Fetch Meals");
+        setMainDish(null);
+        console.log(error);
+      }
+      if (data) {
+        setMainDish(data);
+        setFetchError(null);
+      }
+    };
+    mainDish();
+  }, []);
+
+  return (
+    <div className="bg-yellow-50 min-h-screen mx-2 lg:mx-0">
+      <div className="">
+        <NavNormal />
+        <p className="text-xl pb-5 text-center font-semibold">
+          What will you be eating today?{" "}
+        </p>
+
+        {fetchError && <p>{fetchError}</p>}
+        {mainDishh && (
+          <div>
+            {/* order-by-button */}
+            <div className="grid lg:grid-cols-2 items-center justify-center gap-2 ">
+              {mainDishh.map((mainDishh) => (
+                <MealCard key={mainDishh.id} meal={mainDishh} image={img4} />
+              ))}
+            </div>
+          </div>
+        )}
+        {fetchError && <p>{fetchError}</p>}
+        {meal && (
+          <div>
+            {/* order-by-button */}
+            <div className="grid lg:grid-cols-2 items-center justify-center gap-2 ">
+              {meal.map((meal) => (
+                <MealCard key={meal.id} meal={meal} image={img4} />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+      {/* <div className="grid items-center lg:grid-cols-2 justify-center gap-2 ">
+          <MealCard image={img4} meal={"Nabisi"} />
+          <MealCard image={img4} meal={"Nabisi"} />
+          <MealCard image={img4} meal={"Nabisi"} />
+          <MealCard image={img4} meal={"Nabisi"} />
+          <MealCard image={img4} meal={"Nabisi"} />
+        </div> */}
+    </div>
+  );
+};
+
+export default Meals;
