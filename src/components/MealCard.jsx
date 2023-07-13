@@ -1,8 +1,8 @@
-import { AiFillPlusCircle } from "react-icons/ai";
+// import { AiFillPlusCircle } from "react-icons/ai";
 
 const MealCard = ({ meal, image }) => {
   return (
-    <div className="mb-2 w-5/6 justify-center items-center rounded bg-gray-100 shadow-md hover:border border-orange-200 ease-in-out duration-300 rounded-2xl p-2">
+    <div className="mb-2 w-5/6 justify-center items-center bg-gray-100 shadow-md hover:border border-orange-200 ease-in-out duration-300 rounded-2xl p-2">
       <div className="grid grid-cols-3">
         <div className="">
           <img src={image} alt="/" className="lg:h-[9em] h-[8em] rounded-2xl" />
@@ -18,9 +18,7 @@ const MealCard = ({ meal, image }) => {
       </div>
       <div className="flex justify-between">
         <p className="pt-2 font-semibold text-orange-600">₦{meal.price}.00</p>
-        <div className=" rounded-full flex justify-center items-center h-fit w-fit text-orange-600 cursor-pointer">
-          <AiFillPlusCircle size={28}/>
-        </div>
+        <div className="text-xl rounded-full bg-orange-600 h-fit w-fit text-white cursor-pointer px-2 py-1">+</div>
       </div>
     </div>
   );

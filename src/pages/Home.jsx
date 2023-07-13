@@ -3,13 +3,21 @@ import { useEffect, useState } from "react";
 import img4 from "../assets/img4.jpg";
 import NavNormal from "../components/NavNormal";
 
+
 // Components
 import CafeteriaCard from "../components/CafeteriaCard";
-import { AiOutlineSearch } from "react-icons/ai";
+// import { useStateValue } from "../context/StateProvider";
+// import { actionType } from "../context/reducer";
+
+// import { AiOutlineSearch } from "react-icons/ai";
 
 const Home = ({ token }) => {
   const [fetchError, setFetchError] = useState(null);
   const [cafeteria, setCafeteria] = useState(null);
+  // const [{cafItems}, dispatch] = useStateValue();
+
+  
+  
 
   useEffect(() => {
     const fetchCafeteria = async () => {
@@ -47,7 +55,7 @@ const Home = ({ token }) => {
             id=""
           />
           <div className="text-black border bg-orange-500 border-orange-500 rounded-l-none px-2 py-1 rounded-lg shadow-md mb-5">
-            <AiOutlineSearch size={23}/>
+            Search
           </div>
         </div>{" "}
         {fetchError && <p>{fetchError}</p>}
