@@ -3,13 +3,8 @@ import { useEffect, useState } from "react";
 import img4 from "../assets/img8.webp";
 import NavNormal from "../components/NavNormal";
 import MealCard from "../components/MealCard";
-// import { data } from "autoprefixer";
-import { useStateValue } from "../context/StateProvider";
-
-// import { fetchCaf } from "../utils/fetchLocalStorageData";
-// import { HiSortAscending } from "react-icons/Hi";
-// import { HiSortDescending } from "react-icons/Hi";
-// import { AiOutlineSearch } from "react-icons/Ai";
+import Cart from "../components/Cart";
+// import { useStateValue } from "../context/StateProvider";
 
 const Meals = () => {
   const [fetchError, setFetchError] = useState(null);
@@ -18,26 +13,42 @@ const Meals = () => {
   const [ascending, setAscending] = useState({ ascending: true });
   const [isActive, setIsActive] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  // const [{ cafItems }, dispatch] = useStateValue;
+  const [show, setShow] = useState(true);
+  const [cart, setCart] = useState([]);
+  const [warning, setWarning] = useState(false);
 
-  // const [items, setItems] = useState([]);
-
-  // useEffect(() => {
-  //   const items = JSON.parse(localStorage.getItem("cafItems"));
-  //   if (items) {
-  //     setItems(items);
-  //   }
-  //   console.log(items[0]);
-  // }, []);
-
-  const handleClick = () => {
-    console.log("cloicck");
-
-    setIsActive("bg-blue-800");
+  const handleClick = (meal) => {
+    let isPresent = false;
+    cart.forEach((product) => {
+      if (meal.id === product.id) isPresent = true;
+    });
+    // cart.push(meal)
+    if (isPresent) {
+      setWarning(true);
+      setTimeout(() => {
+        setWarning(false);
+      }, 2000);
+      return;
+    }
+    setCart([...cart, meal]);
+    console.log(cart);
   };
 
+  const handleChange = (meal, d) => {
+    const ind = cart.indexOf(meal);
+    const arr = cart;
+    arr[ind].amount += d;
+
+    if (arr[ind].amount === 0) arr[ind].amount = 1;
+    setCart([...arr]);
+  };
+
+  // useEffect(() => {
+  //   console.log("cart change");
+  // }, [cart]);
+
   function handleSearch(searchTerm) {
-    if (searchTerm.trim() == "") {
+    if (searchTerm == "") {
       setSearchResults([]);
       return;
     }
@@ -60,6 +71,8 @@ const Meals = () => {
     return data;
   }
 
+  
+
   useEffect(() => {
     const fetchMeal = async () => {
       const { data, error } = await supabase
@@ -75,7 +88,6 @@ const Meals = () => {
       if (data) {
         setMeal(data);
         setFetchError(null);
-        console.log(data);
       }
     };
     fetchMeal();
@@ -84,7 +96,10 @@ const Meals = () => {
   return (
     <div className="bg-yellow-50 min-h-screen mx-2 lg:mx-0">
       <div className="">
-        <NavNormal />
+        <NavNormal setShow={setShow} size={cart.length} />
+        {show ? <Cart setShow={setShow} cart={cart} setCart={setCart} handleChange={handleChange} /> : ""}
+        {warning && <div className="h-[40px] w-4/6 absolute right-0 top-[10%] text-white p-1 rounded-lg bg-red-500">Item is already in your cart</div>}
+        {/* <p className="text-2xl mb-5 font-bold">What will you be eating?</p> */}
         <div className="flex  justify-center items-center">
           <input
             className="w-3/6 border border-orange-500 rounded-r-none px-2 py-1 rounded-lg shadow-md mb-2"
@@ -135,7 +150,7 @@ const Meals = () => {
                 className="bg-orange-600 px-2 py-0.5 lg:text-base text-sm text-white rounded-lg hover:bg-orange-400"
                 onClick={() => {
                   setOrderby("title");
-                  handleClick();
+                  // handleClick();
                 }}
               >
                 Title
@@ -144,14 +159,13 @@ const Meals = () => {
                 className="bg-orange-600 px-2 py-0.5 lg:text-base text-sm text-white rounded-lg hover:bg-orange-400"
                 onClick={() => {
                   setOrderby(`type`);
-                  handleClick();
+                  // handleClick();
                 }}
               >
                 Dish Type
               </button>
             </div>
             <div className="flex flex-col ">
-              {/* <p className="text-4xl font-bold">{cafItems.caf_name}</p> */}
               <p className="pb-5 text-sm text-gray-500">
                 {/* {cafItems.caf_description} */}
               </p>
@@ -159,13 +173,23 @@ const Meals = () => {
             {searchResults.length > 0 ? (
               <div className="grid lg:grid-cols-2 items-center justify-center gap-2">
                 {searchResults.map((meal) => (
-                  <MealCard key={meal.id} meal={meal} image={img4} />
+                  <MealCard
+                    key={meal.id}
+                    meal={meal}
+                    image={img4}
+                    handleClick={handleClick}
+                  />
                 ))}
               </div>
             ) : (
               <div className="grid lg:grid-cols-2 items-center justify-center gap-2 ">
                 {meal.map((meal) => (
-                  <MealCard key={meal.id} meal={meal} image={img4} />
+                  <MealCard
+                    key={meal.id}
+                    meal={meal}
+                    image={img4}
+                    handleClick={handleClick}
+                  />
                 ))}
               </div>
             )}

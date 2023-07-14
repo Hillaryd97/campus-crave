@@ -1,6 +1,4 @@
-// import { AiFillPlusCircle } from "react-icons/ai";
-
-const MealCard = ({ meal, image }) => {
+const MealCard = ({ meal, image, handleClick }) => {
   return (
     <div className="mb-2 w-5/6 justify-center items-center bg-gray-100 shadow-md hover:border border-orange-200 ease-in-out duration-300 rounded-2xl p-2">
       <div className="grid grid-cols-3">
@@ -18,7 +16,12 @@ const MealCard = ({ meal, image }) => {
       </div>
       <div className="flex justify-between">
         <p className="pt-2 font-semibold text-orange-600">₦{meal.price}.00</p>
-        <div className="text-xl rounded-full bg-orange-600 h-fit w-fit text-white cursor-pointer px-2 py-1">+</div>
+        <button
+          onClick={() => handleClick(meal)}
+          className="text-sm rounded-full bg-orange-600 h-fit w-fit text-white cursor-pointer px-2 py-1 hover:bg-orange-400"
+        >
+          Add to Cart
+        </button>
       </div>
     </div>
   );

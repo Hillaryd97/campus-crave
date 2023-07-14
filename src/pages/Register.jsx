@@ -49,10 +49,10 @@ const Register = () => {
         <div className="lg:flex hidden">
           <img src={img4} alt="" className="object-cover" />
         </div>
-        <div className="flex flex-col justify-center lg:px-7 lg:border lg:border-r-orange-600 lg:border-2">
+        <div className="flex flex-col justify-center lg:px-7 border lg:border-r-orange-600 lg:border-2">
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
             <div>
-            <h1 className="lg:text-xl text-lg lg:block text-lg font-semibold text-orange-600 pb-3 text-center lg:text-left">
+            <h1 className="lg:text-xl text-lg lg:block font-semibold text-orange-600 pb-3 text-center lg:text-left">
             <i>CampusCrave</i>
           </h1>
           <h2 className="lg:-mt-0 font-semibold text-center lg:text-left text-2xl pb-1">Get started</h2>

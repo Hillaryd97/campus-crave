@@ -5,6 +5,7 @@ import Landing from "./pages/Landing";
 import Register from "./pages/Register";
 import { useEffect, useState } from "react";
 import Meals from "./pages/Meals";
+import Checkout from "./pages/Checkout";
 
 function App() {
   const [token, setToken] = useState(false);
@@ -28,9 +29,11 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login setToken={setToken} />} />
           <Route path="/register" element={<Register />} />
-          {token?<Route path="/home" element={<Home token={token}/>} />: ""}
+          {token ? <Route path="/home" element={<Home token={token} />} /> : ""}
           <Route path="/meals" element={<Meals />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
+
       </div>
       {/* 9p4VNIDR2IkoO3UB */}
     </div>

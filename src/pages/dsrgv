@@ -87,3 +87,19 @@ const Meals = () => {
 };
 
 export default Meals;
+
+
+
+ <div className="w-full flex items-center justify-between p-4 cursor-pointer">
+        <motion.div whileTap={{ scale: 0.75 }}>
+          <button
+            onClick={() => setShow(false)}
+            className="text-gray-600 text-lg"
+          >
+            Back
+          </button>
+        </motion.div>
+        <p className="text-gray-600 text-lg font-semibold">Cart</p>
+        <motion.p className="flex items-center gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md cursor-pointer text-gray-800 ">
+          Clear
+        </motion.p>

@@ -1,29 +1,30 @@
 // import { useState } from "react";
 
 import { Link } from "react-router-dom";
-import { actionType } from "../context/reducer";
-import { useStateValue } from "../context/StateProvider";
-import { useState } from "react";
+// import { actionType } from "../context/reducer";
+// import { useStateValue } from "../context/StateProvider";
+// import { useState } from "react";
 
 const CafeteriaCard = ({ cafeteria, image }) => {
-  const [{ cafItems }, dispatch] = useStateValue();
+  // const [{ cafItems }, dispatch] = useStateValue();
 
-  const [items, setItems] = useState({})
+//  const [items, setItems] = useState({})
 
-  const showCafItem = (cafeteria) => {
-    dispatch({
-      type: actionType.SET_CAFITEMS,
-      cafItems: [...cafeteria],
-    });
-    localStorage.setItem("cafItems", JSON.stringify(cafItems));
+  // const showCafItem = (cafeteria) => {
+  //   setItems([...cafeteria])
+  //   dispatch({
+  //     type: actionType.SET_CAFITEMS,
+  //     cafItems: items,
+  //   });
+  //   localStorage.setItem("cafItems", JSON.stringify(items));
 
-    console.log(cafeteria);
-  };
+  //   console.log(cafeteria);
+  // };
 
   return (
     <Link to={"/meals"}>
       <div
-        onClick={() => showCafItem(cafeteria)}
+        // onClick={() => showCafItem(cafeteria)}
         className="grid grid-cols-3 mb-2 w-5/6 justify-center items-center bg-gray-100 shadow-md hover:border border-orange-200 ease-in-out duration-300 rounded-2xl"
       >
         <div className="w-fit h-fit">
